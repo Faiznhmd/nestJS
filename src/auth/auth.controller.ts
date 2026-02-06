@@ -38,7 +38,11 @@ export class AuthController {
   async getProfile(@Request() req) {
     const userId = req.user.sub;
     const user = await this.userService.getUserById(userId);
-    console.log(user);
-    return user;
+    return {
+      id: user?._id,
+      fname: user?.fname,
+      lname: user?.lname,
+      email: user?.email,
+    };
   }
 }
