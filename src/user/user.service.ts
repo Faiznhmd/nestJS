@@ -7,7 +7,9 @@ import { InjectModel } from '@nestjs/mongoose';
 @Injectable()
 export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
-  async user(registerDto: RegisterDto) {
+
+  // ================= CREATE USER =================
+  async createUser(registerDto: RegisterDto) {
     try {
       return await this.userModel.create({
         fname: registerDto.fname,
@@ -16,13 +18,16 @@ export class UserService {
         password: registerDto.password,
       });
     } catch (err: unknown) {
-      console.log(err);
       const e = err as { code?: number };
-      const DUPLICATE_KEY_CODE = 11000;
-      if (e.code === DUPLICATE_KEY_CODE) {
-        throw new ConflictException('Email is already Taken');
+      if (e.code === 11000) {
+        throw new ConflictException('Email is already taken');
       }
       throw err;
     }
+  }
+
+  // ================= FIND BY EMAIL =================
+  async findByEmail(email: string) {
+    return this.userModel.findOne({ email });
   }
 }
