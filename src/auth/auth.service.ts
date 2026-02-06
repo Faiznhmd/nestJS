@@ -15,7 +15,6 @@ export class AuthService {
       ...registerDto,
       password: hash,
     });
-    console.log('user', user);
-    return {};
+    return user;
   }
 }
