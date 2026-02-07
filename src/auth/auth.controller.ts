@@ -11,7 +11,6 @@ import { RegisterDto } from './dto/register.user.dto';
 import { LoginDto } from './dto/login.dto';
 import { AuthGuard } from './auth.guard';
 import { UserService } from 'src/user/user.service';
-import { reportUnhandledError } from 'rxjs/internal/util/reportUnhandledError';
 
 @Controller('auth')
 export class AuthController {

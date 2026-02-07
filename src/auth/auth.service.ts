@@ -7,6 +7,7 @@ import { UserService } from 'src/user/user.service';
 import { RegisterDto } from './dto/register.user.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { Role } from 'src/user/user.types';
 
 @Injectable()
 export class AuthService {
@@ -37,7 +38,8 @@ export class AuthService {
 
     // Generate token
     const payload = {
-      sub: user._id.toString(),
+      sub: user._id,
+      role: 'admin',
       email: user.email,
     };
 
